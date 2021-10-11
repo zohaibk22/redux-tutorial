@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from "./state/index"
+
 
 function App() {
 
@@ -9,12 +12,18 @@ function App() {
     return state.account
   })
 
+  const dispatch = useDispatch()
+  const AC = bindActionCreators(actionCreators, dispatch)
+
+  const { despositMoney, withdrawMoney} = bindActionCreators(actionCreators, dispatch)
+  console.log(AC)
+
   console.log(account)
   return (
     <div className="App">
     <h1>{account}</h1>
-    <button>Deposit</button>
-    <button>withdraw</button>
+    <button onClick={()=>{despositMoney(1000)}}>Deposit</button>
+    <button onClick={()=>{withdrawMoney(1000)}}>Withdraw</button>
       
     </div>
   );
